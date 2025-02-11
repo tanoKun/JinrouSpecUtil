@@ -1,0 +1,18 @@
+# Version catalog is a central place for you to declare and version dependencies
+# https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
+# https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
+
+[versions]
+kotlin = "2.0.21"
+minecraft = "1.19.4-R0.1-SNAPSHOT"
+bukkitMock = "3.1.0"
+invUI = "1.44"
+slf4j = "2.0.16"
+
+[libraries]
+kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+paperApi = { module = "io.papermc.paper:paper-api", version.ref = "minecraft" }
+bukkitMock = { module = "com.github.seeseemelk:MockBukkit-v1.19", version.ref = "bukkitMock" }
+invUIKotlin = { module = "xyz.xenondevs.invui:invui-kotlin", version.ref = "invUI" }
+invUI = { module = "xyz.xenondevs.invui:invui", version.ref = "invUI" }
+slf4j = { module = "org.slf4j:slf4j-log4j12", version.ref = "slf4j" }
