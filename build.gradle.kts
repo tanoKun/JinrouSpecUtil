@@ -1,8 +1,10 @@
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 
+val projectVersion = "1.0"
+
 plugins {
-    kotlin("jvm")
+    id("org.jetbrains.kotlin.jvm") version "2.0.21"
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
 }
@@ -11,43 +13,41 @@ kotlin {
     jvmToolchain(17)
 }
 
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://repo.xenondevs.xyz/releases")
+    }
+    maven("https://repo.papermc.io/repository/maven-public/")
+}
+
 dependencies {
-    // Add a dependency on the Kotlin Gradle plugin, so that convention plugins can apply it.
-    implementation(libs.kotlinGradlePlugin)
-    implementation(project("app"))
+    compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.21")
+    compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
+    implementation("xyz.xenondevs.invui:invui-kotlin:1.44")
+    implementation("xyz.xenondevs.invui:invui:1.44")
+
+    testImplementation(kotlin("test"))
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.19:3.1.0")
+    testImplementation("org.slf4j:slf4j-log4j12:2.0.16")
 }
 
-allprojects {
-    apply(plugin = "org.jetbrains.kotlin.jvm")
-    apply(plugin = "com.github.johnrengelman.shadow")
-
-    group ="com.github.tanokun"
-    version = "1.0"
-
-    kotlin {
-        jvmToolchain(17)
+tasks.withType<Test> {
+    testLogging {
+        events(PASSED, FAILED, SKIPPED)
+        showStandardStreams = true
     }
 
-    tasks.withType<Test> {
-        testLogging {
-            events(PASSED, FAILED, SKIPPED)
-            showStandardStreams = true
-        }
-
-        useJUnitPlatform()
-    }
-
-    dependencies {
-        testImplementation(kotlin("test"))
-    }
+    useJUnitPlatform()
 }
+
 tasks.named("shadowJar") {
     dependsOn(subprojects.map { it.tasks.named("test") })
 }
 
 tasks.shadowJar {
     archiveBaseName.set("spectatorUtil")
-    archiveVersion.set("1.0")
+    archiveVersion.set(projectVersion)
 
     mergeServiceFiles()
 }
@@ -58,6 +58,7 @@ bukkit {
     load = BukkitPluginDescription.PluginLoadOrder.STARTUP
     apiVersion = "1.18"
     authors = listOf("tanoKun")
+    version = projectVersion
 
     commands {
         register("spec") {
