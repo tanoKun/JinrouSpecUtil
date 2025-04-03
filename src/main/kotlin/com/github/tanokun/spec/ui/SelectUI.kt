@@ -6,6 +6,7 @@ import com.github.tanokun.spec.player.asJinrouPlayer
 import com.github.tanokun.spec.ui.button.ChangeModeButton
 import com.github.tanokun.spec.ui.button.PlayerButton
 import com.github.tanokun.spec.ui.button.SelectButton
+import com.github.tanokun.spec.ui.button.ShowExchangeButton
 import com.github.tanokun.spec.ui.button.page.BackPageButton
 import com.github.tanokun.spec.ui.button.page.NextPageButton
 import com.github.tanokun.spec.ui.button.viewable.SetViewableButton
@@ -32,6 +33,7 @@ class SelectUI(private val uniqueId: UUID) {
     ) {
         updateViewOnlyPlayerButton()
         updateViewAllButton()
+        updateViewOnlyLastSpectatorButton()
     }
 
     val viewOnlyPlayerButton = SetViewableButton(
@@ -42,7 +44,20 @@ class SelectUI(private val uniqueId: UUID) {
     ) {
         updateViewOnlySpectatorButton()
         updateViewAllButton()
+        updateViewOnlyLastSpectatorButton()
     }
+
+    val viewOnlyLastSpectatorButton = SetViewableButton(
+        ui = this,
+        description = "最終観戦者のみ表示",
+        show = Material.SOUL_CAMPFIRE,
+        filter = PlayerFilter.SpectatorAtLast
+    ) {
+        updateViewOnlySpectatorButton()
+        updateViewOnlyPlayerButton()
+        updateViewAllButton()
+    }
+
 
     val viewAllButton = SetViewableButton(
         ui = this,
@@ -52,29 +67,32 @@ class SelectUI(private val uniqueId: UUID) {
     ) {
         updateViewOnlySpectatorButton()
         updateViewOnlyPlayerButton()
+        updateViewOnlyLastSpectatorButton()
     }
+
+    val mode = ChangeModeButton()
 
     private val gui: PagedGui<Item> = PagedGui.items()
         .setStructure(
             "1 # x x x x x x x",
             "2 # x x x x x x x",
             "3 # x x x x x x x",
-            "_ # x x x x x x x",
+            "4 # x x x x x x x",
             "_ # # # # # # # #",
-            "b c _ s _ _ r _ n"
+            "b c _ s e _ r _ n"
         )
         .addIngredient('x', Markers.CONTENT_LIST_SLOT_HORIZONTAL)
         .addIngredient('b', BackPageButton())
         .addIngredient('n', NextPageButton())
-        .addIngredient('c', ChangeModeButton(this))
+        .addIngredient('c', mode)
         .addIngredient('s', SelectButton(this))
+        .addIngredient('e', ShowExchangeButton(this))
         .addIngredient('1', viewOnlyPlayerButton)
         .addIngredient('2', viewOnlySpectatorButton)
-        .addIngredient('3', viewAllButton)
+        .addIngredient('3', viewOnlyLastSpectatorButton)
+        .addIngredient('4', viewAllButton)
         .addIngredient('#', SimpleItem(ItemBuilder(Material.BLACK_STAINED_GLASS_PANE)))
         .build()
-
-    var selectMode: SelectMode = NonLastSpectatorMode
 
     var viewable: PlayerFilter = PlayerFilter.All
 
@@ -112,5 +130,9 @@ class SelectUI(private val uniqueId: UUID) {
 
     private fun updateViewAllButton() {
         viewAllButton.notifyWindows()
+    }
+
+    private fun updateViewOnlyLastSpectatorButton() {
+        viewOnlyLastSpectatorButton.notifyWindows()
     }
 }
