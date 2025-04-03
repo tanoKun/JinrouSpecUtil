@@ -1,6 +1,7 @@
 package com.github.tanokun.spec.ui
 
 import com.github.tanokun.spec.TriggerConfig
+import com.github.tanokun.spec.player.asJinrouPlayer
 import org.bukkit.entity.Player
 
 sealed interface PlayerFilter {
@@ -16,5 +17,9 @@ sealed interface PlayerFilter {
 
     object All: PlayerFilter {
         override fun filter(player: Player): Boolean = true
+    }
+
+    object SpectatorAtLast: PlayerFilter {
+        override fun filter(player: Player): Boolean = player.asJinrouPlayer().isSpectatorAtLast()
     }
 }

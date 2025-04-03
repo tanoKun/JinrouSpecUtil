@@ -18,15 +18,15 @@ object NonLastSpectatorMode: SelectMode {
         .thenByDescending { it.asJinrouPlayer().isSpectatorAtLast() }
         .thenByDescending { it.asJinrouPlayer().getTotalPlayer() > 0 }
 
-    override fun select(candidate: Collection<Player>): List<Player> {
-        val need = candidate.size - MAX_PLAYER
-        if (need <= 0) return emptyList()
+    override fun select(candidate: Collection<Player>, amount: Int): List<Player> {
+        if (amount <= 0) return emptyList()
+        if (candidate.size <= amount) return candidate.toList()
 
         val sortedLastPlayer = candidate
             .shuffled()
             .sortedWith(comparator)
 
-        return sortedLastPlayer.subList(0, need)
+        return sortedLastPlayer.subList(0, amount)
     }
 
     override fun toString(): String = "最後の試合が観戦者ではない人から選択します。"

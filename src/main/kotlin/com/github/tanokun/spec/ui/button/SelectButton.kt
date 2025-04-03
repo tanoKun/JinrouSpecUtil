@@ -2,7 +2,7 @@ package com.github.tanokun.spec.ui.button
 
 import com.github.tanokun.spec.isCooltimeOnUI
 import com.github.tanokun.spec.player.registerSpectator
-import com.github.tanokun.spec.player.unregisterPlayer
+import com.github.tanokun.spec.player.unregisterSpectator
 import com.github.tanokun.spec.setCooltimeOnUI
 import com.github.tanokun.spec.ui.PlayerFilter
 import com.github.tanokun.spec.ui.SelectUI
@@ -16,7 +16,10 @@ import xyz.xenondevs.invui.item.ItemProvider
 import xyz.xenondevs.invui.item.builder.ItemBuilder
 import xyz.xenondevs.invui.item.impl.AbstractItem
 
+private const val MAX_PLAYER = 15
+
 class SelectButton(private val ui: SelectUI): AbstractItem() {
+
     override fun getItemProvider(): ItemProvider {
         return ItemBuilder(Material.HEAVY_WEIGHTED_PRESSURE_PLATE)
             .setDisplayName("§l観戦者選択")
@@ -30,15 +33,16 @@ class SelectButton(private val ui: SelectUI): AbstractItem() {
         player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F)
         unregisterAll()
         val candidate = Bukkit.getOnlinePlayers().filter(PlayerFilter.CurrentPlayer::filter)
-        val selected = ui.selectMode.select(candidate)
+        ui.mode.select(candidate, candidate.size - MAX_PLAYER).forEach {
+            it.registerSpectator()
+        }
 
-        selected.forEach { it.registerSpectator() }
         player.closeInventory()
     }
 
     private fun unregisterAll() {
         Bukkit.getOnlinePlayers()
             .filter(PlayerFilter.CurrentSpectator::filter)
-            .forEach(Player::unregisterPlayer)
+            .forEach(Player::unregisterSpectator)
     }
 }

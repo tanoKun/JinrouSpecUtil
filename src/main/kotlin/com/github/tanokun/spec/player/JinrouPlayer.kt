@@ -61,7 +61,7 @@ fun Player.registerSpectator() {
     this.addScoreboardTag(TriggerConfig.SPECTATOR_MAKER)
 }
 
-fun Player.unregisterPlayer() {
+fun Player.unregisterSpectator() {
     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute as ${this.name} run ${TriggerConfig.UNREGISTER_COMMAND}")
     this.removeScoreboardTag(TriggerConfig.SPECTATOR_MAKER)
 }
