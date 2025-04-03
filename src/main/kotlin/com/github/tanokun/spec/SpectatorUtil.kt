@@ -23,7 +23,9 @@ class SpectatorUtil: JavaPlugin() {
 }
 
 private val cooltimeOnUI = HashSet<UUID>()
-private lateinit var plugin: Plugin
+
+lateinit var plugin: Plugin
+    private set
 
 fun Player.setCooltimeOnUI() {
     cooltimeOnUI.add(this.uniqueId)
