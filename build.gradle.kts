@@ -23,13 +23,11 @@ repositories {
 
 dependencies {
     compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.21")
-    compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
     implementation("xyz.xenondevs.invui:invui-kotlin:1.44")
     implementation("xyz.xenondevs.invui:invui:1.44")
 
     testImplementation(kotlin("test"))
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.19:3.1.0")
-    testImplementation("org.slf4j:slf4j-log4j12:2.0.16")
 }
 
 tasks.withType<Test> {
