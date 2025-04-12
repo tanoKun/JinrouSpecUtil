@@ -4,6 +4,7 @@ import com.github.tanokun.spec.player.asJinrouPlayer
 import com.github.tanokun.spec.ui.button.ChangeModeButton
 import com.github.tanokun.spec.ui.button.PlayerButton
 import com.github.tanokun.spec.ui.button.RandomlyChooseButton
+import com.github.tanokun.spec.ui.button.RandomlyUnSpectateButton
 import com.github.tanokun.spec.ui.button.ShowExchangeButton
 import com.github.tanokun.spec.ui.button.page.BackPageButton
 import com.github.tanokun.spec.ui.button.page.NextPageButton
@@ -85,6 +86,7 @@ class SelectUI(private val uniqueId: UUID) {
         .addIngredient('c', mode)
         .addIngredient('s', RandomlyChooseButton(this))
         .addIngredient('e', ShowExchangeButton(this))
+        .addIngredient('r', RandomlyUnSpectateButton())
         .addIngredient('1', viewOnlyPlayerButton)
         .addIngredient('2', viewOnlySpectatorButton)
         .addIngredient('3', viewOnlyLastSpectatorButton)
