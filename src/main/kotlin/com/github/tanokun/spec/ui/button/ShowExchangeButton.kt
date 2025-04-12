@@ -15,7 +15,7 @@ import xyz.xenondevs.invui.item.impl.AbstractItem
 
 class ShowExchangeButton(private val ui: SelectUI): AbstractItem() {
     override fun getItemProvider(): ItemProvider {
-        return ItemBuilder(Material.BELL)
+        return ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA)
             .setDisplayName("§lランダム入れ替え")
             .addLoreLines("§7選択した観戦者と、ランダムで入れ替えます。")
     }
