@@ -25,7 +25,7 @@ __**連続した観戦の可能性が出てきます。**__
 `/spec` で開くGUI。使うパーミッションは`com.tanokun.github.spec`(デフォルト: OP)
 
 ### ワンタップ観戦者
-![img.png](image/select.png)
+![choose.png](image/choose.png)
 
 このボタンをクリックしたときに、既に観戦者として選ばれている人がいる場合、
 その観戦者は維持したまま、参加者から選択します。
@@ -55,3 +55,8 @@ GUI上にて、観戦、参加関係なく表示します。
 ![exchange.png](image/exchange.png)
 
 クリックすることで選択でき、現在のモードに準じてランダムに入れ替えます。
+
+### ランダム解除
+![unregister.png](image/unregister.png)
+
+15人以上観戦者がいる場合、ランダムで余分な観戦者を参加者にします。
