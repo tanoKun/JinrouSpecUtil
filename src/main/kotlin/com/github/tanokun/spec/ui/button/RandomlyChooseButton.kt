@@ -16,9 +16,9 @@ import xyz.xenondevs.invui.item.ItemProvider
 import xyz.xenondevs.invui.item.builder.ItemBuilder
 import xyz.xenondevs.invui.item.impl.AbstractItem
 
-private const val MAX_PLAYER = 15
+const val MAX_PLAYER = 15
 
-class SelectButton(private val ui: SelectUI): AbstractItem() {
+class RandomlyChooseButton(private val ui: SelectUI): AbstractItem() {
 
     override fun getItemProvider(): ItemProvider {
         return ItemBuilder(Material.BELL)
