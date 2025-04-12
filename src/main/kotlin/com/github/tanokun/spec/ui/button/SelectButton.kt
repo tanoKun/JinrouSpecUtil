@@ -21,7 +21,7 @@ private const val MAX_PLAYER = 15
 class SelectButton(private val ui: SelectUI): AbstractItem() {
 
     override fun getItemProvider(): ItemProvider {
-        return ItemBuilder(Material.HEAVY_WEIGHTED_PRESSURE_PLATE)
+        return ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA)
             .setDisplayName("§l観戦者選択")
             .addLoreLines("§7クリックで、一括で観戦者を選択します。")
     }
