@@ -1,7 +1,7 @@
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 
-val projectVersion = "1.0.3"
+val projectVersion = "1.0.4"
 
 plugins {
     id("org.jetbrains.kotlin.jvm") version "2.0.21"
